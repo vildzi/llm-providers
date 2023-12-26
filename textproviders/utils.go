@@ -6,6 +6,7 @@ func withDefaultOptions(options *llmproviders.TextCompletionOptions) *llmprovide
 	defaultOptions := &llmproviders.TextCompletionOptions{
 		MaxTokens:   512,
 		Temperature: 1,
+		Messages:    []llmproviders.TextCompletionMessage{},
 	}
 
 	if options == nil {
@@ -18,6 +19,10 @@ func withDefaultOptions(options *llmproviders.TextCompletionOptions) *llmprovide
 	if options.Temperature == 0 {
 		options.Temperature = defaultOptions.Temperature
 	}
+	if options.Messages == nil {
+		options.Messages = defaultOptions.Messages
+	}
+
 	return options
 }
 
