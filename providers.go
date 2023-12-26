@@ -6,7 +6,7 @@ import (
 )
 
 type TextCompletionProvider interface {
-	GetCompletion(ctx context.Context, query string, options TextCompletionOptions) (TextCompletionResponse, error)
+	GetCompletion(ctx context.Context, query string, options *TextCompletionOptions) (TextCompletionResponse, error)
 }
 
 type TextCompletionOptions struct {

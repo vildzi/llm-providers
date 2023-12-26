@@ -21,7 +21,7 @@ func TestTextProviders(t *testing.T) {
 
 	llmproviders.RegisterTextProvider(OpenAIProvider, oaiProvider)
 
-	completions, err := llmproviders.WithTextProvider(OpenAIProvider).GetCompletion(context.TODO(), "Tell me a joke", llmproviders.TextCompletionOptions{
+	completions, err := llmproviders.WithTextProvider(OpenAIProvider).GetCompletion(context.TODO(), "Tell me a joke", &llmproviders.TextCompletionOptions{
 		Messages: textproviders.WithSystemPrompt("you are a helpful assistant", nil),
 	})
 	if err != nil {

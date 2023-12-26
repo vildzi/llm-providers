@@ -68,7 +68,7 @@ func (p *OpenAIProvider) convertMessages(messages []llmproviders.TextCompletionM
 	return convertedMessages
 }
 
-func (p *OpenAIProvider) withDefaultOptions(options llmproviders.TextCompletionOptions) llmproviders.TextCompletionOptions {
+func (p *OpenAIProvider) withDefaultOptions(options *llmproviders.TextCompletionOptions) *llmproviders.TextCompletionOptions {
 	baseDefaultOptions := withDefaultOptions(options)
 	if baseDefaultOptions.Model == "" {
 		baseDefaultOptions.Model = string(OpenAIModelGPT35Turbo)
@@ -76,7 +76,8 @@ func (p *OpenAIProvider) withDefaultOptions(options llmproviders.TextCompletionO
 	return baseDefaultOptions
 }
 
-func (p *OpenAIProvider) GetCompletion(ctx context.Context, input string, options llmproviders.TextCompletionOptions) (llmproviders.TextCompletionResponse, error) {
+func (p *OpenAIProvider) GetCompletion(ctx context.Context, input string, options *llmproviders.TextCompletionOptions) (llmproviders.TextCompletionResponse, error) {
+	// options will never be nil after this call
 	options = p.withDefaultOptions(options)
 
 	messages := append(options.Messages, llmproviders.TextCompletionMessage{

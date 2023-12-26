@@ -2,12 +2,21 @@ package textproviders
 
 import llmproviders "github.com/vildzi/llm-providers"
 
-func withDefaultOptions(options llmproviders.TextCompletionOptions) llmproviders.TextCompletionOptions {
+func withDefaultOptions(options *llmproviders.TextCompletionOptions) *llmproviders.TextCompletionOptions {
+	defaultOptions := &llmproviders.TextCompletionOptions{
+		MaxTokens:   512,
+		Temperature: 1,
+	}
+
+	if options == nil {
+		return defaultOptions
+	}
+
 	if options.MaxTokens == 0 {
-		options.MaxTokens = 512
+		options.MaxTokens = defaultOptions.MaxTokens
 	}
 	if options.Temperature == 0 {
-		options.Temperature = 1
+		options.Temperature = defaultOptions.Temperature
 	}
 	return options
 }
