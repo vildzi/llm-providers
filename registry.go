@@ -23,6 +23,10 @@ func WithTextProvider(key string) TextCompletionProvider {
 	return textProviders[key]
 }
 
+func GetDefaultProviderKey() *string {
+	return defaultTextProvider
+}
+
 func SetDefaultTextProvider(key string) error {
 	textProvidersMux.Lock()
 	defer textProvidersMux.Unlock()
