@@ -4,15 +4,15 @@ import "sync"
 
 var textProviders = make(map[string]TextCompletionProvider)
 var textProvidersMux sync.RWMutex
-var defaultTextProvider *string
+var DefaultTextProvider *string
 
 func RegisterTextProvider(key string, provider TextCompletionProvider) {
 	textProvidersMux.Lock()
 	defer textProvidersMux.Unlock()
 
 	textProviders[key] = provider
-	if defaultTextProvider == nil {
-		defaultTextProvider = &key
+	if DefaultTextProvider == nil {
+		DefaultTextProvider = &key
 	}
 }
 
@@ -21,10 +21,6 @@ func WithTextProvider(key string) TextCompletionProvider {
 	defer textProvidersMux.RUnlock()
 
 	return textProviders[key]
-}
-
-func GetDefaultProviderKey() *string {
-	return defaultTextProvider
 }
 
 func SetDefaultTextProvider(key string) error {
@@ -41,8 +37,8 @@ func WithDefaultTextProvider() TextCompletionProvider {
 	textProvidersMux.RLock()
 	defer textProvidersMux.RUnlock()
 
-	if defaultTextProvider == nil {
+	if DefaultTextProvider == nil {
 		return nil
 	}
-	return textProviders[*defaultTextProvider]
+	return textProviders[*DefaultTextProvider]
 }
