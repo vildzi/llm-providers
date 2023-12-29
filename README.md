@@ -26,7 +26,7 @@ if err != nil {
     panic("failed to init openai provider")
 }
 
-llmproviders.RegisterProvider("openai", oaiProvider)
+llmproviders.RegisterTextProvider("openai", oaiProvider)
 // also becomes the default provider as the first registered provider, can be accessed with llmproviders.WithDefaultProvider()
 
 completions, err := llmproviders.WithTextProvider("openai").GetCompletion(context.TODO(), "Tell me a joke", &llmproviders.TextCompletionOptions{
